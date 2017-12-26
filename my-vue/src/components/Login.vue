@@ -16,28 +16,32 @@
 </template>
 
 <script>
+  import Store from '../store.js'
   export default {
     name: "login",
     data: function () {
       return {
-        msg: '登录成功',
+        msg: '学习列表',
         flag: true,
-        items: [
-          {
-            language: 'Java',
-            isFinished: true
-          },
-          {
-            language: 'Python',
-            isFinished: false
-          },
-          {
-            language: 'Vue',
-            isFinished: true
-          }
-        ],
+//        items: [
+//          {
+//            language: 'Java',
+//            isFinished: true
+//          }
+//        ],
+        items: Store.fetch(),
         liClass: 'liClassLog',
         newItem: ''
+      }
+    },
+    // 添加监听
+    watch: {
+      items: {
+        handler: function (items) {
+          //每次items数组变化时，都会将新的数组存储到localStorage中
+          Store.save(items)
+        },
+        deep:true
       }
     },
     methods: {
