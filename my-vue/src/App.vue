@@ -1,9 +1,10 @@
 <template>
   <div class="app">
-    <header></header>
     <img src="./assets/logo.png">
+    <v-header prop="this is header prop" v-on:child-info="listenChildMsg"></v-header>
+    <span>Child tell father:{{ childMsg }}</span>
     <router-view/>
-    <footer></footer>
+    <v-footer></v-footer>
   </div>
 </template>
 
@@ -12,7 +13,20 @@
   import Footer from './components/footer'
 export default {
   name : 'app',
-  component:[Header,Footer]
+  data : function () {
+    return{
+      childMsg : ''
+    }
+  },
+  components : {
+    'v-header':Header,
+    'v-footer':Footer
+  },
+  methods:{
+    listenChildMsg : function (msg) {
+        this.childMsg = msg
+    }
+  }
 }
 </script>
 

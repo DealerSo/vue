@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+      .liClass {
+        font-size: 50px;
+        font-weight: bold;
+        color: #42b983;
+      }
+    </style>
+</head>
+<body>
+  <div id="bind">
+    <ul>
+      <li v-for="skill in skills">
+        <span v-bind:class="{liClass:skill.display}">{{skill.language}}</span>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript">
+    new Vue({
+      el : '#bind',
+      data : {
+        skills:[
+          {
+            language : 'Java',
+            description : '',
+            display : true
+          },
+          {
+            language : 'Python',
+            description : '',
+            display : false
+          },
+          {
+            language : 'Vue',
+            description : '',
+            display : true
+          },
+        ]
+      }
+    })
+  </script>
+</body>
+</html>
