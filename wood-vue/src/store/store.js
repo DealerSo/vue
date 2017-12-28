@@ -6,15 +6,20 @@ export default {
   fetch : function () {
     return JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '[]')
   },
-  save : function (item) {
-    window.localStorage.setItem(STORAGE_KEY,JSON.stringify(item))
+  save : function (items) {
+    window.localStorage.setItem(STORAGE_KEY,JSON.stringify(items))
   },
   remove : function (index) {
     // 得到数组值
-    var courses = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+    var courses = JSON.parse(window.localStorage.getItem(STORAGE_KEY))
     // 删除该索引所对应的项
     courses.splice(index,1)
     //重新setItem3
+    window.localStorage.setItem(STORAGE_KEY,JSON.stringify(courses))
+  },
+  modify : function (index,flag) {
+    var courses = JSON.parse(window.localStorage.getItem(STORAGE_KEY))
+    courses[index].isChecked = flag
     window.localStorage.setItem(STORAGE_KEY,JSON.stringify(courses))
   }
 }

@@ -31,7 +31,13 @@
           <ul class="todo-list">
             <li class="todo"  v-for="course in courses" >
               <div class="view">
-                <input class="toggle" type="checkbox" v-on:click="modifyStatus(course)"/>
+                <!--如果course.isChecked == true 那么选中，否则不选中-->
+                <span v-if="course.isChecked">
+                  <input class="toggle" type="checkbox" v-on:click="modifyStatus(course)" checked/>
+                </span>
+                <span v-else>
+                  <input class="toggle" type="checkbox" v-on:click="modifyStatus(course)"/>
+                </span>
                 <label v-bind:class="{completed:course.isChecked}">{{ course.language }}</label>
                 <button class="destroy" v-on:click="removeCourse(course)"></button>
               </div>
@@ -68,13 +74,17 @@
           },
           // 删除课程
           removeCourse : function (course) {
-              var index = this.courses.indexOf(course);
+              var index = this.courses.indexOf(course)
               this.courses.splice(index,1)
               // 删除缓存中的项
               Store.remove(index)
           },
           modifyStatus : function (course) {
-            course.isChecked = !course.isChecked
+            var checkedFlag = !course.isChecked
+            course.isChecked = checkedFlag
+            var index = this.courses.indexOf(course)
+            // 修改localStorage中的值
+            Store.modify(index,checkedFlag)
           }
         }
     }
